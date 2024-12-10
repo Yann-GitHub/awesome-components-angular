@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SocialMediaComponent } from './social-media.component';
+import { PostListComponent } from './post-list.component';
 
-describe('SocialMediaComponent', () => {
-  let component: SocialMediaComponent;
-  let fixture: ComponentFixture<SocialMediaComponent>;
+describe('PostListComponent', () => {
+  let component: PostListComponent;
+  let fixture: ComponentFixture<PostListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SocialMediaComponent]
+      imports: [PostListComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SocialMediaComponent);
+    fixture = TestBed.createComponent(PostListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
