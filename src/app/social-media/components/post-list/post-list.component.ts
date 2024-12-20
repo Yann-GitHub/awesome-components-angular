@@ -4,6 +4,7 @@ import { PostListItemComponent } from '../post-list-item/post-list-item.componen
 import { Observable, map } from 'rxjs';
 import { Post } from '../../models/post.model';
 import { AsyncPipe, NgFor } from '@angular/common';
+import { PostService } from '../../services/post.service';
 
 @Component({
   selector: 'app-post-list',
@@ -15,9 +16,17 @@ import { AsyncPipe, NgFor } from '@angular/common';
 export class PostListComponent implements OnInit {
   posts$!: Observable<Post[]>; // Resolved posts data from the route
 
-  constructor(private route: ActivatedRoute) {} // Injects ActivatedRoute to access resolved route data
+  constructor(
+    private route: ActivatedRoute,
+    private postService: PostService
+  ) {} // Injects ActivatedRoute to access resolved route data
 
   ngOnInit() {
     this.posts$ = this.route.data.pipe(map((data) => data['posts'])); // Extracts the 'posts' value from the resolved route data
+  }
+
+  onPostCommented(postCommented: { comment: string; postId: number }) {
+    // Handle the emitted comment data from the child component
+    this.postService.addNewComment(postCommented);
   }
 }

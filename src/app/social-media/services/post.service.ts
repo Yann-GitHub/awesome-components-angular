@@ -15,4 +15,8 @@ export class PostService {
     // return this.http.get<Post[]>('http://localhost:3000/posts'); // Without environment variable - hard coded
     return this.http.get<Post[]>(`${environment.apiUrl}/posts`);
   }
+
+  addNewComment(postCommented: { comment: string; postId: number }) {
+    console.log('New comment:', postCommented);
+  }
 }
