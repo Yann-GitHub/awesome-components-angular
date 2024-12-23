@@ -3,7 +3,15 @@ mat-card {
 }
 
 mat-card-actions {
-  padding: 0 16px;
+  padding: 10px 16px;
+}
+
+mat-card-content {
+  img {
+    margin-top: 10px;
+    width: 100%;
+    height: auto;
+  }
 }
 
 .post-content {

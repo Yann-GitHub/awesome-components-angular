@@ -4,14 +4,15 @@
       <span>{{ post.title | titlecase }}</span>
     </mat-card-title>
     <mat-card-subtitle>
-      <span>{{ post.createdDate | date }}</span>
+      <span> {{ tempUser | userName : "en" }}</span>
+      <span>{{ post.createdDate | timeAgo }}</span>
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     @if (post.imageUrl) {
     <img mat-card-image [src]="post.imageUrl" [alt]="post.title" />
     }
-    <div class="post-content">{{ post.content }}</div>
+    <div class="post-content">{{ post.content | shorten : 35 }}</div>
   </mat-card-content>
   <mat-card-actions>
     <app-comments
