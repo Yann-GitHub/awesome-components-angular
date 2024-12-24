@@ -1,9 +1,11 @@
 mat-card {
   margin-bottom: 20px;
+  width: 100%;
 }
 
 mat-card-actions {
   padding: 10px 16px;
+  width: 100%;
 }
 
 mat-card-content {
@@ -16,4 +18,12 @@ mat-card-content {
 
 .post-content {
   margin-top: 10px;
+}
+
+.actions-block {
+  width: 100%;
+}
+
+app-comments {
+  width: 100%;
 }

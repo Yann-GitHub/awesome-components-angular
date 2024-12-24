@@ -14,7 +14,7 @@
     }
     <div class="post-content">{{ post.content | shorten : 35 }}</div>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions class="actions-block">
     <app-comments
       [comments]="post.comments"
       (newComment)="onNewComment($event)"
