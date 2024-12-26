@@ -14,7 +14,15 @@ import {
   style,
   transition,
   animate,
+  query,
+  group,
+  sequence,
+  stagger,
+  animateChild,
+  useAnimation,
 } from '@angular/animations';
+import { flashAnimation } from '../../animations/flash.animation';
+import { slideAndFadeAnimation } from '../../animations/slide-and-fade.animation';
 
 @Component({
   selector: 'app-comments',
@@ -29,7 +37,11 @@ import {
     MatIconModule,
     ReactiveFormsModule,
   ],
+
   animations: [
+    trigger('list', [
+      transition(':enter', [query('@listItem', [stagger(50, animateChild())])]),
+    ]),
     trigger('listItem', [
       state(
         'default',
@@ -50,17 +62,41 @@ import {
       transition('default => active', [animate('250ms ease-in-out')]),
       transition('active => default', [animate('250ms ease-in-out')]),
       transition('void => *', [
-        style({
-          transform: 'translateX(-100%)',
-          opacity: 0,
-          backgroundColor: 'rgb(201, 157, 242)',
+        query('.comment-text, .comment-date', [
+          style({
+            opacity: 0,
+          }),
+        ]),
+        useAnimation(slideAndFadeAnimation, {
+          params: {
+            time: '500ms',
+            startColor: 'rgb(201, 157, 242)',
+          },
         }),
-        animate('250ms ease-in-out'),
-        style({
-          transform: 'translateX(0)',
-          opacity: 1,
-          backgroundColor: 'white',
-        }),
+        group([
+          useAnimation(flashAnimation, {
+            params: {
+              time: '250ms',
+              flashColor: 'rgb(201, 157, 242)',
+            },
+          }),
+          query('.comment-text', [
+            animate(
+              '250ms',
+              style({
+                opacity: 1,
+              })
+            ),
+          ]),
+          query('.comment-date', [
+            animate(
+              '500ms',
+              style({
+                opacity: 1,
+              })
+            ),
+          ]),
+        ]),
       ]),
     ]),
   ],
