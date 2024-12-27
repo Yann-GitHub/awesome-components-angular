@@ -8,5 +8,12 @@ export const routes: Routes = [
         (m) => m.SOCIALMEDIA_ROUTES
       ),
   },
+  {
+    path: 'complex-form',
+    loadChildren: () =>
+      import('./complex-form/complex-form.routes').then(
+        (m) => m.COMPLEXFORM_ROUTES
+      ),
+  },
   { path: '', redirectTo: 'social-media', pathMatch: 'full' },
 ];
