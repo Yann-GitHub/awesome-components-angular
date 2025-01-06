@@ -7,15 +7,19 @@ import { SingleEmployeeComponent } from './components/single-employee/single-emp
 export const REACTIVESTATE_ROUTES: Routes = [
   {
     path: '',
+    redirectTo: 'employees',
+    pathMatch: 'full',
+  },
+  {
+    path: 'employees',
     component: EmployeeListComponent,
   },
   {
-    path: ':id',
+    path: 'employees/:id',
     component: SingleEmployeeComponent,
   },
   {
-    path: '',
-    redirectTo: 'reactive-state',
-    pathMatch: 'full',
+    path: '**',
+    redirectTo: 'employees',
   },
 ];
