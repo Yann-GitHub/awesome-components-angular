@@ -1,1 +1,50 @@
-<p>employee-list works!</p>
+<!-- <mat-card>
+  <mat-card-title-group>
+    <mat-card-title> Candidats </mat-card-title>
+  </mat-card-title-group>
+  <mat-spinner *ngIf="loading$ | async"></mat-spinner>
+  <mat-nav-list *ngIf="employees$ | async as employees">
+    <a
+      *ngFor="let employee of employees"
+      mat-list-item
+      routerLink="employee.id.toString()"
+    >
+      <img
+        [src]="employee.imageUrl"
+        [alt]="employee.lastName"
+        matListItemAvatar
+      />
+      <p mat-list-item>{{ employee.firstName }} {{ employee.lastName }}</p>
+      <p mat-list-item>{{ employee.job }} chez {{ employee.company }}</p>
+    </a>
+  </mat-nav-list>
+</mat-card> -->
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Candidats</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-spinner *ngIf="loading$ | async"></mat-spinner>
+
+    <mat-nav-list *ngIf="employees$ | async as employees">
+      <mat-list-item
+        *ngFor="let employee of employees"
+        [routerLink]="employee.id.toString()"
+      >
+        <img
+          matListItemAvatar
+          [src]="employee.imageUrl"
+          [alt]="employee.lastName"
+        />
+        <div matListItemTitle>
+          {{ employee.firstName }} {{ employee.lastName }}
+        </div>
+        <div matListItemLine>
+          {{ employee.job }} chez {{ employee.company }}
+        </div>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-card-content>
+</mat-card>

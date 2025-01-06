@@ -8,7 +8,6 @@ export const REACTIVESTATE_ROUTES: Routes = [
   {
     path: '',
     component: EmployeeListComponent,
-    // resolve: { posts: PostsResolver }, // Resolves the posts data before rendering the component and return it at the key 'posts'
   },
   {
     path: ':id',
