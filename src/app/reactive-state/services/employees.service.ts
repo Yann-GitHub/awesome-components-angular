@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap, delay } from 'rxjs';
+import { BehaviorSubject, Observable, tap, delay, map } from 'rxjs';
 import { Employee } from '../models/employee.model';
 import { environment } from '../../../environments/environment';
 
@@ -52,5 +52,18 @@ export class EmployeesService {
         })
       )
       .subscribe();
+  }
+
+  getEmployeeById(id: number): Observable<Employee> {
+    if (!this.lastEmployeesLoad) {
+      this.getEmployeesFromServer();
+    }
+    return this.employees$.pipe(
+      // map((employees) => employees.filter((employee) => employee.id === id)[0])
+      map(
+        (employees) =>
+          employees.find((employee) => employee.id === id) as Employee
+      )
+    );
   }
 }

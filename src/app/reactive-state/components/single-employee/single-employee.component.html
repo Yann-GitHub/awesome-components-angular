@@ -1,1 +1,32 @@
-<p>single-employee works!</p>
+<mat-card>
+  <ng-container *ngIf="employee$ | async as employee">
+    <img
+      [src]="employee.imageUrl"
+      [alt]="employee.firstName + ' ' + employee.lastName"
+    />
+    <div class="employee-info">
+      <h1>{{ employee.firstName }} {{ employee.lastName }}</h1>
+      <h2>
+        {{ employee.job }}, {{ employee.department }} chez
+        {{ employee.company }}
+      </h2>
+      <h3>Contact : {{ employee.email }}</h3>
+    </div>
+  </ng-container>
+  <mat-card-actions class="action-container">
+    <mat-spinner *ngIf="loading$ | async; else buttons"></mat-spinner>
+    <ng-template #buttons>
+      <div class="action-buttons">
+        <button mat-flat-button color="accent" (click)="onHire()">
+          EMBAUCHER
+        </button>
+        <button mat-flat-button color="warn" (click)="onRefuse()">
+          REFUSER
+        </button>
+      </div>
+      <button mat-flat-button color="primary" (click)="onGoBack()">
+        RETOUR
+      </button>
+    </ng-template>
+  </mat-card-actions>
+</mat-card>
