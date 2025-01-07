@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable, switchMap } from 'rxjs';
+import { Observable, switchMap, take, tap } from 'rxjs';
 import { Employee } from '../../models/employee.model';
 import { EmployeesService } from '../../services/employees.service';
 import { MatCardModule } from '@angular/material/card';
@@ -51,11 +51,19 @@ export class SingleEmployeeComponent implements OnInit {
     console.log('Hiring employee');
   }
 
-  onGoBack() {
-    this.router.navigateByUrl('/reactive-state/employees');
+  onRefuse() {
+    this.employee$
+      .pipe(
+        take(1),
+        tap((employee: Employee) => {
+          this.employeesService.refuseEmployee(employee.id);
+          this.onGoBack();
+        })
+      )
+      .subscribe();
   }
 
-  onRefuse() {
-    console.log('Refusing employee');
+  onGoBack() {
+    this.router.navigateByUrl('/reactive-state/employees');
   }
 }

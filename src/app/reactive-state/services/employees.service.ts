@@ -1,6 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap, delay, map } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  tap,
+  delay,
+  map,
+  switchMap,
+  take,
+} from 'rxjs';
 import { Employee } from '../models/employee.model';
 import { environment } from '../../../environments/environment';
 
@@ -65,5 +73,23 @@ export class EmployeesService {
           employees.find((employee) => employee.id === id) as Employee
       )
     );
+  }
+
+  refuseEmployee(id: number): void {
+    this.setLoadingStatus(true);
+    // Pessimistic approach - wait for the response from the server
+    this.http
+      .delete(`${environment.apiUrl}/candidates/${id}`)
+      .pipe(
+        delay(1000),
+        switchMap(() => this.employees$),
+        take(1),
+        map((employees) => employees.filter((employee) => employee.id !== id)),
+        tap((employees) => {
+          this._employees$.next(employees);
+          this.setLoadingStatus(false);
+        })
+      )
+      .subscribe();
   }
 }
