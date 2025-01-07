@@ -1,29 +1,25 @@
-<!-- <mat-card>
-  <mat-card-title-group>
-    <mat-card-title> Candidats </mat-card-title>
-  </mat-card-title-group>
-  <mat-spinner *ngIf="loading$ | async"></mat-spinner>
-  <mat-nav-list *ngIf="employees$ | async as employees">
-    <a
-      *ngFor="let employee of employees"
-      mat-list-item
-      routerLink="employee.id.toString()"
-    >
-      <img
-        [src]="employee.imageUrl"
-        [alt]="employee.lastName"
-        matListItemAvatar
-      />
-      <p mat-list-item>{{ employee.firstName }} {{ employee.lastName }}</p>
-      <p mat-list-item>{{ employee.job }} chez {{ employee.company }}</p>
-    </a>
-  </mat-nav-list>
-</mat-card> -->
-
 <mat-card>
   <mat-card-header>
     <mat-card-title>Candidats</mat-card-title>
   </mat-card-header>
+
+  <div class="form">
+    <mat-form-field appearance="fill">
+      <mat-label>Rechercher</mat-label>
+      <input matInput type="text" [formControl]="searchCtrl" />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-select [formControl]="searchTypeCtrl">
+        <mat-option
+          *ngFor="let option of searchTypeOptions"
+          [value]="option.value"
+        >
+          {{ option.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
   <mat-card-content>
     <mat-spinner *ngIf="loading$ | async"></mat-spinner>

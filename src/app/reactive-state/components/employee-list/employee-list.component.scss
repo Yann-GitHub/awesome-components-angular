@@ -1,0 +1,10 @@
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+mat-form-field {
+  margin-right: 10px;
+}
