@@ -48,7 +48,15 @@ export class SingleEmployeeComponent implements OnInit {
   }
 
   onHire() {
-    console.log('Hiring employee');
+    this.employee$
+      .pipe(
+        take(1),
+        tap((employee: Employee) => {
+          this.employeesService.hireEmployee(employee.id);
+          this.onGoBack();
+        })
+      )
+      .subscribe();
   }
 
   onRefuse() {

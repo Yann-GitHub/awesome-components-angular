@@ -92,4 +92,29 @@ export class EmployeesService {
       )
       .subscribe();
   }
+
+  hireEmployee(id: number): void {
+    // Optimistic approach - update the list of employees before the response from the server
+    this.employees$
+      .pipe(
+        take(1), // Take the first value from the observable
+        map((employees) =>
+          employees.map((employee) =>
+            employee.id === id
+              ? { ...employee, company: 'Snapface Ltd' }
+              : employee
+          )
+        ),
+        tap((updatedEmployees) => this._employees$.next(updatedEmployees)),
+        delay(1000),
+        switchMap((updatedEmployees) =>
+          this.http.patch(
+            `${environment.apiUrl}/candidates/${id}`,
+            { company: 'Snapface Ltd' }
+            // updatedEmployees.find((employee) => employee.id === id)
+          )
+        )
+      )
+      .subscribe();
+  }
 }
